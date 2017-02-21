@@ -137,6 +137,11 @@ module.exports = function(source, inputSourceMap) {
       return callback(null, result.code, result.map);
     });
   }
+  
+  //hot fix on input source map from webpack is string rather than json
+  if(options.inputSourceMap != undefined){
+    options.inputSourceMap = JSON.parse(options.inputSourceMap)
+  }
 
   const result = transpile(source, options);
   this.callback(null, result.code, result.map);
